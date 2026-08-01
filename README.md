@@ -1,4 +1,4 @@
-# 3D Missile–Aircraft Pursuit Simulation
+# 3D Missile-Aircraft Pursuit Simulation
 
 A Python simulation and 3D visualization of an AIM-120 AMRAAM class missile pursuing an F-16C Fighting Falcon, using Proportional Navigation (PN) guidance.
 
@@ -6,20 +6,20 @@ The missile launches from dead stop, boosts to Mach 4, then steers using PN guid
 
 ## Features
 
-- **Proportional Navigation guidance (3D)** — commands lateral acceleration proportional to LOS rotation rate; navigation constant N=5 (Ref: DTIC ADP010953)
-- **Boost phase** — missile launches from dead stop and ramps to full speed over 3 seconds; PN inactive during boost
-- **Gravity and g-limiting** — gravity applied during sustain phase; lateral acceleration capped at 40g (Ref: MIL-HDBK-1211)
-- **F-16C Fighting Falcon target** — Mach 1.6 cruise, 9g structural limit, realistic engagement geometry
-- **Active evasion with RWR** — target detects missile at 25 km, reacts after 0.5 s, then executes continuous chained 120° S-turn arcs (Ref: Shaw — *Fighter Combat*, 1985)
-- **Missile state machine** — distinct FLYING / HIT / MISSED states; miss detected by negative closing velocity
-- **Simulation summary** — prints peak lateral g, result (INTERCEPT or MISS), intercept time, and final miss distance
-- **3D animated visualization** — real-time position trails, HUD with time and range readout, intercept star marker
-- **Switchable color themes** — light bone theme active; dark tactical theme available in `visualization/animation.py`
+- **Proportional Navigation guidance (3D)** - commands lateral acceleration proportional to LOS rotation rate; navigation constant N=5 (Ref: DTIC ADP010953)
+- **Boost phase** - missile launches from dead stop and ramps to full speed over 3 seconds; PN inactive during boost
+- **Gravity and g-limiting** - gravity applied during sustain phase; lateral acceleration capped at 40g (Ref: MIL-HDBK-1211)
+- **F-16C Fighting Falcon target** - Mach 1.6 cruise, 9g structural limit, realistic engagement geometry
+- **Active evasion with RWR** - target detects missile at 25 km, reacts after 0.5 s, then executes continuous chained 120° S-turn arcs (Ref: Shaw - *Fighter Combat*, 1985)
+- **Missile state machine** - distinct FLYING / HIT / MISSED states; miss detected by negative closing velocity
+- **Simulation summary** - prints peak lateral g, result (INTERCEPT or MISS), intercept time, and final miss distance
+- **3D animated visualization** - real-time position trails, HUD with time and range readout, intercept star marker
+- **Switchable color themes** - light bone theme active; dark tactical theme available in `visualization/animation.py`
 
 ## Project Structure
 
 ```
-missle-guidence-sim/
+missile-guidance-sim/
 ├── main.py                        # Entry point
 ├── config.py                      # All scenario parameters
 ├── guidance/
@@ -57,7 +57,7 @@ All scenario parameters are in `config.py`:
 | `MISSILE_SPEED` | 1374 m/s | AIM-120 class top speed (~Mach 4) |
 | `BOOST_TIME` | 3 s | Boost phase duration |
 | `MAX_G_FORCE` | 40 g | Missile lateral acceleration limit |
-| `NAV_CONSTANT` | 5.0 | PN navigation ratio (typical range 3–5) |
+| `NAV_CONSTANT` | 5.0 | PN navigation ratio (typical range 3-5) |
 | `TARGET_DETECTION_RANGE` | 25000 m | RWR detection range |
 | `TARGET_REACTION_TIME` | 0.5 s | Pilot reaction delay after RWR alert |
 | `EVASION_TURN_ANGLE` | 120° | Sweep angle per S-turn arc |
@@ -91,12 +91,12 @@ The 3D animation shows:
 
 ## References
 
-- DTIC ADP010953 — Proportional Navigation guidance law
-- MIL-HDBK-1211(MI) — Missile flight simulation methods
-- Jane's Air-Launched Weapons — AIM-120 AMRAAM specifications
-- Jane's All the World's Aircraft — F-16C performance data
-- Shaw, R.L. — *Fighter Combat: Tactics and Maneuvering* (1985)
-- Zarchan — *Tactical and Strategic Missile Guidance* (2012)
+- DTIC ADP010953 - Proportional Navigation guidance law
+- MIL-HDBK-1211(MI) - Missile flight simulation methods
+- Jane's Air-Launched Weapons - AIM-120 AMRAAM specifications
+- Jane's All the World's Aircraft - F-16C performance data
+- Shaw, R.L. - *Fighter Combat: Tactics and Maneuvering* (1985)
+- Zarchan - *Tactical and Strategic Missile Guidance* (2012)
 
 ---
 

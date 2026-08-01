@@ -19,7 +19,7 @@ class Environment:
     Runs the simulation loop, coupling Target and Missile each timestep.
 
     Target velocity is estimated by finite difference between consecutive
-    position samples — this is consistent with how a real seeker would
+    position samples - this is consistent with how a real seeker would
     estimate target velocity from successive measurements.
 
     The missile is held at its start position until MISSILE_LAUNCH_TIME.

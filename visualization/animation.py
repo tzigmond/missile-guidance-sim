@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 # ============================================================
-# Color palette — light bone theme
+# Color palette - light bone theme
 # ============================================================
 BG_COLOR        = "#f5efe0"   # near-bone background
 PANEL_COLOR     = "#ede4d0"   # axis panel face
@@ -11,14 +11,14 @@ GRID_COLOR      = "#c8b89a"   # subtle grid lines
 TEXT_COLOR      = "#958373"   # light gray text
 STATUS_COLOR    = '#ff4444'   # bright red for INTERCEPT
 
-AIRCRAFT_COLOR  = '#c0392b'   # crimson — aircraft
-MISSILE_COLOR   = '#e67e22'   # vivid orange — missile
-START_AIRCRAFT  = "#2e7d32"   # forest green — aircraft start marker
-START_MISSILE   = '#d35400'   # deep orange — missile start marker
-INTERCEPT_COLOR = '#c0392b'   # dark red star — intercept marker
+AIRCRAFT_COLOR  = '#c0392b'   # crimson - aircraft
+MISSILE_COLOR   = '#e67e22'   # vivid orange - missile
+START_AIRCRAFT  = "#2e7d32"   # forest green - aircraft start marker
+START_MISSILE   = '#d35400'   # deep orange - missile start marker
+INTERCEPT_COLOR = '#c0392b'   # dark red star - intercept marker
 
 # # ============================================================
-# # Color palette — dark tactical theme
+# # Color palette - dark tactical theme
 # # ============================================================
 # BG_COLOR        = '#0d0f14'   # near-black with cool blue tint
 # PANEL_COLOR     = '#111520'   # deep navy panel
@@ -26,11 +26,11 @@ INTERCEPT_COLOR = '#c0392b'   # dark red star — intercept marker
 # TEXT_COLOR      = '#7a8fa6'   # muted steel blue-gray text
 # STATUS_COLOR    = '#ff4444'   # bright red for INTERCEPT
 
-# AIRCRAFT_COLOR  = '#00cfff'   # electric cyan — aircraft
-# MISSILE_COLOR   = '#ff6a00'   # vivid orange — missile
-# START_AIRCRAFT  = '#00cc66'   # bright green — aircraft start marker
-# START_MISSILE   = '#ffaa00'   # amber — missile start marker
-# INTERCEPT_COLOR = '#ff2222'   # red star — intercept marker
+# AIRCRAFT_COLOR  = '#00cfff'   # electric cyan - aircraft
+# MISSILE_COLOR   = '#ff6a00'   # vivid orange - missile
+# START_AIRCRAFT  = '#00cc66'   # bright green - aircraft start marker
+# START_MISSILE   = '#ffaa00'   # amber - missile start marker
+# INTERCEPT_COLOR = '#ff2222'   # red star - intercept marker
 
 def animate(times, target_states, missile_states, result):
     """
@@ -67,7 +67,7 @@ def animate(times, target_states, missile_states, result):
         intercept_frame = int(np.argmin(np.abs(times - intercept_time)))
 
     # ----------------------------------------------------------
-    # Figure and axes — dark background
+    # Figure and axes - dark background
     # ----------------------------------------------------------
     fig = plt.figure(figsize=(14, 10), facecolor=BG_COLOR)
     ax  = fig.add_subplot(111, projection='3d')
@@ -111,7 +111,7 @@ def animate(times, target_states, missile_states, result):
     ax.set_ylabel('Y (km)', labelpad=10)
     ax.set_zlabel('Z (km)', labelpad=10)
     ax.set_title(
-        '3D Missile-Aircraft Pursuit Simulation — Proportional Navigation',
+        '3D Missile-Aircraft Pursuit Simulation - Proportional Navigation',
         color=TEXT_COLOR,
         pad=15,
         fontsize=13
@@ -128,7 +128,7 @@ def animate(times, target_states, missile_states, result):
                label='Missile Start',  zorder=5, edgecolors='white', linewidths=0.5)
 
     # ----------------------------------------------------------
-    # Intercept marker — initially hidden
+    # Intercept marker - initially hidden
     # ----------------------------------------------------------
     intercept_marker, = ax.plot([], [], [], '*',
                                 color=INTERCEPT_COLOR,

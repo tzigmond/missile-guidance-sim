@@ -9,7 +9,7 @@ class Target:
 
     Normal flight: three-segment preset path (straight → banked turn → straight)
 
-    Evasion — chained banked S-turns:
+    Evasion - chained banked S-turns:
     Once the missile is detected (after boost completes), after a reaction
     delay the target executes a series of chained 120° banked arcs, each
     reversing direction from the last. Each arc includes the same vertical
@@ -19,9 +19,9 @@ class Target:
     Arc chain positions are pre-computed including accumulated drift so
     there are no position discontinuities at arc boundaries.
 
-    Ref: Shaw, R.L. — Fighter Combat: Tactics and Maneuvering (1985), p.64-71
-    Ref: Zarchan — Tactical and Strategic Missile Guidance (2012)
-    Ref: trace_and_chase.py — reference arc geometry (read-only)
+    Ref: Shaw, R.L. - Fighter Combat: Tactics and Maneuvering (1985), p.64-71
+    Ref: Zarchan - Tactical and Strategic Missile Guidance (2012)
+    Ref: trace_and_chase.py - reference arc geometry (read-only)
     """
 
     def __init__(self):
@@ -86,7 +86,7 @@ class Target:
         Pre-compute the full chain of S-turn arcs.
 
         Each arc's start position is computed from the DRIFTED end
-        position of the previous arc — this ensures there are no
+        position of the previous arc - this ensures there are no
         position discontinuities at arc boundaries.
 
         The drift formula (cosine envelope) matches the preset curve
@@ -109,7 +109,7 @@ class Target:
         forward = vel / speed if speed > 1.0 else np.array([1.0, 0.0, 0.0])
 
         # ----------------------------------------------------------
-        # Break direction — away from missile
+        # Break direction - away from missile
         # ----------------------------------------------------------
         world_up = np.array([0.0, 0.0, 1.0])
         right    = np.cross(forward, world_up)
@@ -128,7 +128,7 @@ class Target:
         # ----------------------------------------------------------
         # Arc parameters
         # r = v² / (n*g)
-        # Ref: MIL-HDBK-1797 — Flying Qualities of Piloted Aircraft
+        # Ref: MIL-HDBK-1797 - Flying Qualities of Piloted Aircraft
         # ----------------------------------------------------------
         speed_nom = config.TARGET_SPEED
         radius    = speed_nom**2 / (config.TARGET_MAX_G * config.GRAVITY)
@@ -173,7 +173,7 @@ class Target:
                             - current_break * radius * np.cos(end_theta)
                             + current_fwd   * radius * np.sin(end_theta))
 
-            # Drifted end position — this becomes the next arc's start
+            # Drifted end position - this becomes the next arc's start
             # The drift offset must be added so the next arc center is
             # computed from the correct (drifted) start position.
             end_pos_drifted      = end_pos_geom.copy()
@@ -250,13 +250,13 @@ class Target:
 
         theta = omega * tc
 
-        # Base arc position — continuous at tc=0 because center was
+        # Base arc position - continuous at tc=0 because center was
         # computed from the drifted start position of this arc
         pos = (center
                - break_dir * radius * np.cos(theta)
                + forward   * radius * np.sin(theta))
 
-        # Vertical drift — cosine envelope, zero at tc=0 and tc=arc_dur
+        # Vertical drift - cosine envelope, zero at tc=0 and tc=arc_dur
         # At tc=0: drift=0 → no discontinuity
         # At tc=arc_dur: drift=drift_end → matches next arc's start
         # Ref: trace_and_chase.py target_location() curve segment

@@ -3,7 +3,7 @@ import config
 from guidance.proportional_navigation import proportional_navigation
 
 # MissileState enum for clean state machine
-# Ref: MIL-HDBK-1211(MI), Section 5.5 - missile flight phases
+# Ref: MIL-HDBK-1211(MI) - missile flight phases
 from enum import Enum
 
 class MissileState(Enum):
@@ -18,13 +18,13 @@ class Missile:
         self.position = config.MISSILE_START.copy().astype(float)
         self.mass     = config.MISSILE_MASS
 
-        # SAM launches from dead stop — speed builds during boost phase
-        # Ref: MIL-HDBK-1211(MI) Section 4.4.1 - initial conditions
+        # SAM launches from dead stop - speed builds during boost phase
+        # Ref: MIL-HDBK-1211(MI) - initial conditions
         self.speed    = 0.0
 
         # Initial velocity: small upward nudge so vectors are valid on first step.
         # Boost phase immediately overrides this with vertical climb.
-        # Ref: MIL-HDBK-1211(MI) Section 4.4.1
+        # Ref: MIL-HDBK-1211(MI)
         self.velocity = np.array([0.0, 0.0, 1.0]) * 0.001
 
         self.state        = MissileState.FLYING
@@ -66,10 +66,10 @@ class Missile:
         # --------------------------------------------------
         # BOOST PHASE
         # High-thrust axial acceleration from dead stop.
-        # PN guidance is inactive — missile climbs vertically.
+        # PN guidance is inactive - missile climbs vertically.
         # Speed ramps linearly from 0 to MISSILE_SPEED over BOOST_TIME.
-        # Ref: MIL-HDBK-1211(MI) Section 5.4
-        # Ref: Jane's Land-Based Air Defence — SAM boost profiles
+        # Ref: MIL-HDBK-1211(MI)
+        # Ref: Jane's Land-Based Air Defence - SAM boost profiles
         # --------------------------------------------------
         if self._flight_time <= config.BOOST_TIME:
             self.speed = min(
@@ -81,14 +81,14 @@ class Missile:
             return self.position
 
         # --------------------------------------------------
-        # SUSTAIN PHASE — PN guidance active from here down
+        # SUSTAIN PHASE - PN guidance active from here down
         # Lock speed to MISSILE_SPEED for sustain normalization
         # --------------------------------------------------
         self.speed = config.MISSILE_SPEED
 
         # --------------------------------------------------
         # Check intercept condition
-        # Ref: MIL-HDBK-1211(MI) Section 6.2.3
+        # Ref: MIL-HDBK-1211(MI)
         # --------------------------------------------------
         r = target_pos - self.position
         distance = np.linalg.norm(r)
@@ -101,9 +101,9 @@ class Missile:
         # --------------------------------------------------
         # MISSED condition
         # If closing velocity goes negative the missile is
-        # moving away from the target — it has passed through
+        # moving away from the target - it has passed through
         # or flown past. No recovery possible.
-        # Ref: MIL-HDBK-1211(MI) Section 6.2.4
+        # Ref: MIL-HDBK-1211(MI)
         # --------------------------------------------------
         closing_vel = -np.dot(r, target_vel - self.velocity) / np.linalg.norm(r)
         if closing_vel < 0:
@@ -126,8 +126,8 @@ class Missile:
         # --------------------------------------------------
         # Lateral g-force limiting
         # Only lateral (perpendicular to velocity) acceleration
-        # is limited — axial thrust is separate.
-        # Ref: MIL-HDBK-1211(MI) Section 5.6.2
+        # is limited - axial thrust is separate.
+        # Ref: MIL-HDBK-1211(MI)
         # --------------------------------------------------
         vel_hat = self.velocity / np.linalg.norm(self.velocity)
         accel_lateral = accel - np.dot(accel, vel_hat) * vel_hat
@@ -137,7 +137,7 @@ class Missile:
             accel_lateral = accel_lateral * (config.MAX_ACCEL / lateral_mag)
 
         # Track peak g-load (lateral only)
-        # Ref: MIL-HDBK-1211(MI) Section 5.6
+        # Ref: MIL-HDBK-1211(MI)
         current_g = lateral_mag / config.GRAVITY
         if current_g > self.peak_g:
             self.peak_g = current_g
@@ -146,7 +146,7 @@ class Missile:
         # Update velocity: apply lateral acceleration only
         # Speed is held constant by propulsion (constant-speed
         # assumption for boost-sustain motors)
-        # Ref: MIL-HDBK-1211(MI) Section 5.4
+        # Ref: MIL-HDBK-1211(MI)
         # --------------------------------------------------
         self.velocity = self.velocity + accel_lateral * dt
 
@@ -157,7 +157,7 @@ class Missile:
         # below counteracts gravity's effect on speed, but
         # gravity's directional pull (nose-down) is preserved
         # in the updated velocity direction.
-        # Ref: MIL-HDBK-1211(MI) Section 5.3.2
+        # Ref: MIL-HDBK-1211(MI)
         # Ref: U.S. Standard Atmosphere 1976, Table 2
         # --------------------------------------------------
         self.velocity += np.array([0.0, 0.0, -config.GRAVITY]) * dt

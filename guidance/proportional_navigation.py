@@ -28,8 +28,8 @@ def proportional_navigation(missile_pos,
     vector is a common implementation error that causes the missile to
     fly wildly out of plane in 3D scenarios.
 
-    Ref: DTIC ADP010953, Section 3.2 — Proportional Navigation guidance law
-    Ref: MIL-HDBK-1211 (1995), Section 5.6.3 — PN implementation
+    Ref: DTIC ADP010953 - Proportional Navigation guidance law
+    Ref: MIL-HDBK-1211 (1995) - PN implementation
 
     PARAMETERS
     ----------
@@ -42,7 +42,7 @@ def proportional_navigation(missile_pos,
     target_vel : np.ndarray (3,)
         Current target velocity vector [m/s]
     N : float
-        Effective navigation ratio (typically 3–5 for tail-chase,
+        Effective navigation ratio (typically 3-5 for tail-chase,
         5 recommended for this scenario geometry)
 
     RETURNS
@@ -73,10 +73,10 @@ def proportional_navigation(missile_pos,
     #
     # This vector points perpendicular to the LOS plane (like a
     # rotation axis). Its magnitude is the angular rate of LOS
-    # rotation. Do NOT use this directly as an acceleration — it
+    # rotation. Do NOT use this directly as an acceleration - it
     # points out-of-plane.
     #
-    # Ref: DTIC ADP010953, Eq. 3.1
+    # Ref: DTIC ADP010953
     # ----------------------------------------------------------
     omega = np.cross(r, v_rel) / dist**2
 
@@ -96,7 +96,7 @@ def proportional_navigation(missile_pos,
     # omega back into the LOS plane, giving an in-plane steering
     # direction perpendicular to the LOS.
     #
-    # Ref: DTIC ADP010953, Eq. 3.4
+    # Ref: DTIC ADP010953
     # ----------------------------------------------------------
     accel_command = N * closing_vel * np.cross(omega, r_hat)
 
